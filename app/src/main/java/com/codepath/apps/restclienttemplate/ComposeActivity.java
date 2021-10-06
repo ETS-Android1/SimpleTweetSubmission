@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -22,10 +25,11 @@ public class ComposeActivity extends AppCompatActivity {
 
     EditText etCompose;
     Button btnTweet;
+    TextView tvCharMax;
 
     TwitterClient client;
 
-    public static final int MAX_TWEET_LENGTH = 140;
+    public static final int MAX_TWEET_LENGTH = 280;
     public static final String TAG = "ComposeActivity;";
 
     @Override
@@ -37,6 +41,7 @@ public class ComposeActivity extends AppCompatActivity {
 
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweet);
+        tvCharMax = findViewById(R.id.tvCharMax);
 
         //Set an onClickListener on the Button
         btnTweet.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +86,43 @@ public class ComposeActivity extends AppCompatActivity {
                 });
             }
         });
+        etCompose.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //Sets the displayed text of the text view to the total allowed
+                tvCharMax.setText(Integer.toString(MAX_TWEET_LENGTH));
+
+
+
+            }
+
+           @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int tweetLength = etCompose.getText().length();
+                int charRemaining = MAX_TWEET_LENGTH - tweetLength;
+                tvCharMax.setText(Integer.toString(charRemaining));
+                Log.i(TAG, "There are " + charRemaining + " characters remaining!");
+                if (charRemaining <= 10){
+                    tvCharMax.setTextColor(-65536);
+                }
+                if (charRemaining < 0){
+                    Toast.makeText(ComposeActivity.this, "Too many characters!", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+
+            }
+        });
+
+
 
     }
 }
