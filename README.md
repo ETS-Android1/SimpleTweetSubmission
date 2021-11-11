@@ -1,6 +1,6 @@
-# Project 2 - *Jelani CodePath 2021*
+# Project 2 - *Richard CodePath 2021*
 
-**Jelani CodePath 2021** is an android app that allows a user to view his Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
+**Richard CodePath 2021** is an android app that allows a user to view his Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
 Time spent: **11** hours spent in total
 
